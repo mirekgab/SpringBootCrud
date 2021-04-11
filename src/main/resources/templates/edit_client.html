@@ -11,10 +11,12 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>SpringBoot CRUD application</div>
-        <br/>
-        <a href="client/list">json clients list</a>
-        <br/>
-        <a href="clienthtml/list">client html lists</a>
+        <form th:action="@{/clienthtml/save_client}" th:object="${client}" method="POST">
+            client id: <input type="text" th:field="*{clientId}" readonly="readonly"/>    
+            <br/>
+            client name: <input type="text" th:field="*{clientName}"/>
+            <br/>
+            <input type="submit" value="Save"/>
+        </form>
     </body>
 </html>

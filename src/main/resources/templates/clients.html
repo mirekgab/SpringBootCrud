@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+        <div>Client html list</div>
+        <div><a href="../">back</a></div>
+        <br/>
+        <table class="table1">
+            <tr>
+                <th>client id</th>
+                <th>client name</th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr th:each="client:${clients}">
+                <td th:text="${client.clientId}" />
+                <td th:text="${client.clientName}" />
+                <td><a th:href="@{'edit/' + ${client.clientId}}">edytuj</a></td>
+            </tr>
+        </table>
+    </body>
+</html>

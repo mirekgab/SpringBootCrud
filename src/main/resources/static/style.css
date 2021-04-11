@@ -1,0 +1,15 @@
+.table1 {
+    border:solid 1px black;
+    border-collapse:separate;
+    border-spacing:0px;
+}
+
+.table1 th{
+    border: solid 1px black;
+    padding:2px;
+}
+
+.table1 td {
+    border: solid 1px black;
+    padding:2px;
+}
