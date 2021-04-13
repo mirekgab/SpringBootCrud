@@ -22,5 +22,10 @@ public class SpringBootCrudApplication {
                 clientRepository.save(new Client("client3"));
             };
         }
+        
+        @Bean 
+        public MirekgabUriBuilder mirekgabUriBuilder() {
+            return new MirekgabUriBuilder();
+        }
 
 }

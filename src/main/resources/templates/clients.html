@@ -9,17 +9,20 @@
     <body>
         <div>Client html list</div>
         <div><a href="../">back</a></div>
+        <a href="edit">new client</a>
+        <br/>
         <br/>
         <table class="table1">
             <tr>
                 <th>client id</th>
                 <th>client name</th>
-                <th>&nbsp;</th>
+                <th colspan='2'>&nbsp;</th>
             </tr>
             <tr th:each="client:${clients}">
                 <td th:text="${client.clientId}" />
                 <td th:text="${client.clientName}" />
                 <td><a th:href="@{'edit/' + ${client.clientId}}">edytuj</a></td>
+                <td><a th:href="@{'delete/'+${client.clientId}}">usuń</a></td>
             </tr>
         </table>
     </body>

@@ -28,21 +28,38 @@ import pl.mirekgab.springbootcrud.service.ClientRepository;
  *
  * @author mirek
  */
-@RestController
-@RequestMapping("/client")
-public class ClientRestController {
+//@RestController
+//@RequestMapping("/client")
+public class ClientRestHATEOASController {
 
     private ClientRepository clientRepository;
 
     @Autowired
-    public ClientRestController(ClientRepository clientRepository) {
+    public ClientRestHATEOASController(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     @GetMapping(value="/list", produces="application/hal+json")
-    public Iterable<Client> clientList() {
-        Iterable<Client> clients = clientRepository.findAll();
-        return clients;
+    public CollectionModel<Client> clientList() {
+        Iterable <Client> clients = clientRepository.findAll();
+        for (final Client c : clients) {
+            Link selfLink = linkTo(ClientRestHATEOASController.class).slash("get").slash(c.getClientId()).withSelfRel().withType("get");
+            Link deleteLink = linkTo(ClientRestHATEOASController.class).slash("delete").slash(c.getClientId())
+                    .withRel("delete").withType("delete");
+            Link saveClientLink = linkTo(ClientRestHATEOASController.class)
+                    .slash("save_client")
+                    .withRel("update client")
+                    .withType("post");
+                    
+//Client class must extends RepresentationModel<Client>
+//            c.add(selfLink);
+//            c.add(deleteLink);
+//            c.add(saveClientLink);
+        }
+        Link link = linkTo(ClientRestHATEOASController.class).slash("list").withRel("allClients");
+        CollectionModel<Client> result = CollectionModel.of(clients, link);
+
+        return result;
     }
 
     @GetMapping("/get/{clientId}")
@@ -64,6 +81,7 @@ public class ClientRestController {
 
     @PostMapping(value = "/save_client", consumes = "application/json")
     public Client saveClient(@RequestBody Client client) {
+        System.out.println("rest controller " + client);
         Client c = clientRepository.save(client);
         return c;
     }

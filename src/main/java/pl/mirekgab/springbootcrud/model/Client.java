@@ -5,6 +5,7 @@
  */
 package pl.mirekgab.springbootcrud.model;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
 /**
@@ -12,7 +13,7 @@ import javax.persistence.*;
  * @author mirek
  */
 @Entity
-public class Client {
+public class Client implements Serializable  {
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -51,6 +52,11 @@ public class Client {
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" + "clientId=" + clientId + ", clientName=" + clientName + '}';
     }
     
     
