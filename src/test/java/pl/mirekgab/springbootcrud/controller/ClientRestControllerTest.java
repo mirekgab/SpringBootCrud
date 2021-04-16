@@ -5,22 +5,30 @@
  */
 package pl.mirekgab.springbootcrud.controller;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
+import pl.mirekgab.springbootcrud.SpringBootCrudApplication;
 import pl.mirekgab.springbootcrud.model.Client;
 import pl.mirekgab.springbootcrud.service.ClientRepository;
 
@@ -28,88 +36,41 @@ import pl.mirekgab.springbootcrud.service.ClientRepository;
  *
  * @author mirek
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ExtendWith(SpringExtension.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = SpringBootCrudApplication.class)
+@AutoConfigureMockMvc
+@TestPropertySource(locations = "classpath:application-integrationtest.properties")
 public class ClientRestControllerTest {
 
     @Autowired
-    ClientRepository clientRepository;
+    private MockMvc mvc;
 
-    @LocalServerPort
-    private int port;
-
-    static RestTemplate restTemplate;
+    @Autowired
+    private ClientRepository clientRepository;
 
     public ClientRestControllerTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-        restTemplate = new RestTemplate();
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-//        clientRepository.deleteAll();
-//        clientRepository.save(new Client("client1"));
-//        clientRepository.save(new Client("client2"));
-//        clientRepository.save(new Client("client3"));
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of clientList method, of class ClientRestController.
-     */
     @Test
-    public void testClientList() {
-        System.out.println("clientList");
-        Client[] clients = restTemplate.getForObject("http://localhost:"+port+"/client/list", Client[].class);
+    public void givenEmployees_whenGetEmployees_thenStatus200()
+            throws Exception {
 
-        assertEquals(clients.length, 3);
-    }
+        clientRepository.save(new Client("client6"));
+        
+        System.out.println(clientRepository.findAll());
 
-    /**
-     * Test of getClient method, of class ClientRestController.
-     */
-    @Test
-    public void testGetClient() {
-        System.out.println("getClient");
-        Long clientId = 1L;
+        ResultActions ra = mvc.perform(get("/client/get/1")
+                .contentType(MediaType.APPLICATION_JSON));
 
-        Client result = restTemplate.getForObject("http://localhost:"+port+"/client/get/" + clientId, Client.class);
-        assertEquals(result.getClientName(), "client1");
-    }
-
-    /**
-     * Test of deleteClient method, of class ClientRestController.
-     */
-    @Test
-    public void testDeleteClient() {
-        System.out.println("deleteClient");
-        assertTrue(true);
-    }
-
-    /**
-     * Test of saveClient method, of class ClientRestController.
-     */
-    @Test
-    public void testSaveClient() {
-        System.out.println("saveClient");
-        Client client = new Client("testClient");
-        ResponseEntity<Client> newClient = restTemplate.postForEntity("http://localhost:"+port+"/client/save_client", client, Client.class);
-
-        assertEquals(newClient.getStatusCode(), HttpStatus.OK);
-        long newId = newClient.getBody().getClientId();
-        assertEquals(newId, 4L);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        MvcResult andReturn = ra.andReturn();
+        System.out.println("wynik testu");
+        System.out.println(andReturn.getResponse().getStatus());
+        
+        ra.andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("clientName", is("client1a")))
+                .andExpect(jsonPath("clientId", is(1)));
     }
 
 }

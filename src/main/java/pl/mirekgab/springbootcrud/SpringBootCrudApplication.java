@@ -16,10 +16,7 @@ public class SpringBootCrudApplication {
         
         @Bean
         public CommandLineRunner clientData(ClientRepository clientRepository) {
-            return (args) -> {
-                clientRepository.save(new Client("client1"));
-                clientRepository.save(new Client("client2"));
-                clientRepository.save(new Client("client3"));
+            return (args) -> {                
             };
         }
         
@@ -27,5 +24,5 @@ public class SpringBootCrudApplication {
         public MirekgabUriBuilder mirekgabUriBuilder() {
             return new MirekgabUriBuilder();
         }
-
+        
 }
