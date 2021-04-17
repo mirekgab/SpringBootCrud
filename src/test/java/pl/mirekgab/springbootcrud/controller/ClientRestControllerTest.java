@@ -56,12 +56,11 @@ public class ClientRestControllerTest {
     
 
     public ClientRestControllerTest() {
-        System.out.println("start test");
         
     }
 
     @Test
-    public void givenEmployees_whenGetEmployees_thenStatus200()
+    public void givenClient_whenGetClient_thenStatus200()
             throws Exception {
 
         clientRepository.save(new Client(1L, "client1"));
