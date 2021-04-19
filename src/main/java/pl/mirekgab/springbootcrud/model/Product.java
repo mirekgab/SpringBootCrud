@@ -21,7 +21,7 @@ public class Product {
     @Id
     private Long id;
     
-    private String name;
+    private String productName;
     
     private BigDecimal gross;
 
@@ -33,12 +33,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public BigDecimal getGross() {
