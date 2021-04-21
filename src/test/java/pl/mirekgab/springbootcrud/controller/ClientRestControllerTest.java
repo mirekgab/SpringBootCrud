@@ -6,6 +6,10 @@
 package pl.mirekgab.springbootcrud.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -45,7 +49,7 @@ import pl.mirekgab.springbootcrud.service.ClientRepository;
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT ,classes = SpringBootCrudApplication.class)
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
-@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ClientRestControllerTest {
 
     @Autowired
@@ -88,7 +92,7 @@ public class ClientRestControllerTest {
     }
     
     @Test
-    public void getClient() throws Exception {
+    public void saveAndGetNewClient() throws Exception {
         Client c = new Client(2L, "client2");
         clientRepository.save(c);
         
@@ -99,6 +103,22 @@ public class ClientRestControllerTest {
         String s1 = objectMapper.writeValueAsString(c);
         assertEquals(stringResult, s1);
         
+    }
+    
+    @Test
+    public void deleteClient() {
+
+        Client client = new Client("client99test");
+        client = clientRepository.save(client);
+        Iterable<Client> clients = clientRepository.findAll();
+        int sizeBefore = ((Collection<?>) clients).size();
+        
+        clientRepository.deleteById(client.getClientId());
+
+        Iterable<Client> clientsAfterDelete = clientRepository.findAll();
+        int sizeAfter = ((Collection<?>) clientsAfterDelete).size();
+
+        assertEquals(sizeAfter+1, sizeBefore);
     }
 
 }

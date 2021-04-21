@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+        <div>products html list</div>
+        <div><a href="../">back</a></div>
+        <a href="edit">new product</a>
+        <br/>
+        <br/>
+        <table class="table1">
+            <tr>
+                <th>product id</th>
+                <th>product name</th>
+                <th colspan='2'>&nbsp;</th>
+            </tr>
+            <tr th:each="product:${products}">
+                <td th:text="${product.productId}" />
+                <td th:text="${product.productName}" />
+                <td><a th:href="@{'edit/' + ${product.productId}}">edytuj</a></td>
+                <td><a th:href="@{'delete/'+${product.productId}}">usuń</a></td>
+            </tr>
+        </table>
+    </body>
+</html>

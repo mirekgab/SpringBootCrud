@@ -7,7 +7,10 @@ package pl.mirekgab.springbootcrud.model;
 
 import java.math.BigDecimal;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,7 +26,9 @@ public class OrderPosition {
     
     private Long orderId;
     
-    private Long productId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", referencedColumnName = "productId")
+    private Product product;
     
     private BigDecimal value;
 
@@ -43,20 +48,20 @@ public class OrderPosition {
         this.orderId = orderId;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
     public BigDecimal getValue() {
         return value;
     }
 
     public void setValue(BigDecimal value) {
         this.value = value;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
     
      

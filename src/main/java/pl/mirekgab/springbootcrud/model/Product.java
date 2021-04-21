@@ -6,7 +6,10 @@
 package pl.mirekgab.springbootcrud.model;
 
 import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,18 +22,19 @@ import javax.persistence.Table;
 public class Product {
     
     @Id
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long productId;
     
     private String productName;
     
     private BigDecimal gross;
 
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {

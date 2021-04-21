@@ -18,7 +18,6 @@ public class Client implements Serializable  {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "clientId")
     private Long clientId;
     
     

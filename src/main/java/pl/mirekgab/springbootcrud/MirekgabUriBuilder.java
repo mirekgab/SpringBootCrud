@@ -26,7 +26,6 @@ public class MirekgabUriBuilder {
                 .scheme(myProperties.getRestScheme())
                 .host(myProperties.getRestHost())
                 .port(myProperties.getRestPort())
-                .path(myProperties.getRestEndpoint())
                 .path(restPath)
                 .buildAndExpand(parameters);
         return uriComponents.toUri();
@@ -37,7 +36,6 @@ public class MirekgabUriBuilder {
                 .scheme(myProperties.getRestScheme())
                 .host(myProperties.getRestHost())
                 .port(myProperties.getRestPort())
-                .path(myProperties.getRestEndpoint())
                 .path(restPath)
                 .build();
         return uriComponents.toUri();

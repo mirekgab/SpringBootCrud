@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.mirekgab.springbootcrud.controller;
+package pl.mirekgab.springbootcrud.controller.product;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -19,82 +19,80 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import pl.mirekgab.springbootcrud.MirekgabUriBuilder;
-import pl.mirekgab.springbootcrud.MyProperties;
 import pl.mirekgab.springbootcrud.model.Client;
+import pl.mirekgab.springbootcrud.model.Product;
+import pl.mirekgab.springbootcrud.service.ProductRepository;
 
 /**
  *
  * @author mirek
  */
-@RequestMapping("/clienthtml")
 @Controller
-public class ClientHtmlController {
-
-    @Autowired
-    private MyProperties myProperties;
+@RequestMapping("/producthtml")
+public class ProductHtmlController {
 
     @Autowired
     private MirekgabUriBuilder mirekgabUriBuilder;
 
     @GetMapping("/list")
-    public String clientList(Model model) {
+    public String productsList(Model model) {
         RestTemplate rt = new RestTemplate();
         rt.setMessageConverters(
                 Traverson.getDefaultMessageConverters(MediaTypes.HAL_JSON));
 
-        ResponseEntity<Client[]> re = rt.getForEntity("http://localhost:8080/client/list", Client[].class);
+        ResponseEntity<Product[]> re = rt.getForEntity("http://localhost:8080/product/list", Product[].class);
 
-        model.addAttribute("clients", re.getBody());
-        return "clients";
+        model.addAttribute("products", re.getBody());
+        return "products";
     }
 
-    @GetMapping(value = {"/edit", "/edit/{clientId}"})
-    public String getClient(@PathVariable(required = false, value = "clientId") Long clientId, Model model) {
-        if (clientId != null) {
+    @GetMapping(value = {"/edit", "/edit/{productId}"})
+    public String getProduct(@PathVariable(required = false, value = "productId") Long productId, Model model) {
+        if (productId != null) {
             RestTemplate restTemplate = new RestTemplate();
 
-            //"http://localhost:8080/client/get/{clientId}"
+            //"http://localhost:8080/product/get/{productId}"
             Map<String, Long> uriParameters = new HashMap<>();
-            uriParameters.put("clientId", clientId);
-            String restPath = "/get/{clientId}";
+            uriParameters.put("productId", productId);
+            String restPath = "/product/get/{productId}";
             URI uri = mirekgabUriBuilder.buildUri(restPath, uriParameters);
 
-            ResponseEntity<Client> responseEntity = restTemplate.getForEntity(uri, Client.class);
-            model.addAttribute("client", responseEntity.getBody());
+            ResponseEntity<Product> responseEntity = restTemplate.getForEntity(uri, Product.class);
+            model.addAttribute("product", responseEntity.getBody());
         } else {
-            model.addAttribute("client", new Client());
+            model.addAttribute("product", new Product());
         }
-        return "edit_client";
+        return "edit_product";
     }
 
-    @PostMapping(value = "/save_client")
-    public String saveClient(Client client, HttpServletResponse response) {
+    @PostMapping(value = "/save_product")
+    public String saveClient(Product product, HttpServletResponse response) {
         RestTemplate rt = new RestTemplate();
 
         //"http://localhost:8080/client/save_client";
-        String restPath = "/save_client";
+        String restPath = "/product/save_product";
         URI uri = mirekgabUriBuilder.buildUri(restPath);
 
-        ResponseEntity<Client> re = rt.postForEntity(uri, client, Client.class);
-        return "redirect:/clienthtml/list";
-    }
-
-    @GetMapping(value = "delete/{clientId}")
-    public String deleteClient(@PathVariable("clientId") Long clientId) {
+        ResponseEntity<Product> re = rt.postForEntity(uri, product, Product.class);
+        return "redirect:/producthtml/list";
+    }    
+    
+    @GetMapping(value = "delete/{productId}")
+    public String deleteProduct(@PathVariable("productId") Long productId) {
 
         RestTemplate rt = new RestTemplate();
         
         //http://localhost:8080/client/delete/{clientId}
-        String restPath = "/delete/{clientId}";
+        String restPath = "/product/delete/{productId}";
         Map<String, Long> parameters = new HashMap<>();
-        parameters.put("clientId", clientId);
+        parameters.put("productId", productId);
         URI uri = mirekgabUriBuilder.buildUri(restPath, parameters);
         
         rt.delete(uri);
 
-        return "redirect:/clienthtml/list";
-    }
-
+        return "redirect:/producthtml/list";
+    }    
 }

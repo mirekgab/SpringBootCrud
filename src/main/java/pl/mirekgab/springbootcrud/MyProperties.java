@@ -18,7 +18,6 @@ public class MyProperties {
     private String restScheme;
     private String restHost;
     private Integer restPort;
-    private String restEndpoint;
 
     public String getRestHost() {
         return restHost;
@@ -43,15 +42,4 @@ public class MyProperties {
     public void setRestScheme(String restScheme) {
         this.restScheme = restScheme;
     }
-
-    public String getRestEndpoint() {
-        return restEndpoint;
-    }
-
-    public void setRestEndpoint(String restEndpoint) {
-        this.restEndpoint = restEndpoint;
-    }
-    
-    
-    
 }

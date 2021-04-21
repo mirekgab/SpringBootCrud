@@ -5,9 +5,16 @@
  */
 package pl.mirekgab.springbootcrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,17 +23,21 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="orders")
+//@JsonIgnoreProperties({"client"})
 public class Order {
     
     @Id
     private Long id;
     
-    private Long clientId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id", referencedColumnName = "clientId")
+    //@JsonIgnore
+    private Client client;
     
     private String orderNumber;
     
     private BigDecimal gross;
-
+    
     public Long getId() {
         return id;
     }
@@ -35,13 +46,7 @@ public class Order {
         this.id = id;
     }
 
-    public Long getClientId() {
-        return clientId;
-    }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
-    }
 
     public String getOrderNumber() {
         return orderNumber;
@@ -58,7 +63,13 @@ public class Order {
     public void setGross(BigDecimal gross) {
         this.gross = gross;
     }
-    
-    
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
    
 }
