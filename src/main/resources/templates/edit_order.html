@@ -9,6 +9,21 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/jquery.min.js"></script>
+        <script th:inline="javascript">
+            var clientsList = /*[[${clients}]]*/ "";
+        </script>
+
+        <script type="text/javascript">
+            function selectClient() {
+                var selectedClientId = parseInt($("#selectClient").val());
+                $("#client\\.clientId").val(selectedClientId);
+                let clientInfo=clientsList.find((o) => {
+                    return o["clientId"] === selectedClientId;
+                });
+                $("#clientInfo").text(clientInfo['clientName']);
+            }
+        </script>
     </head>
     <body>
         <form th:action="@{/orderhtml/save_order}" th:object="${order}" method="POST">
@@ -16,15 +31,18 @@ and open the template in the editor.
             <br/>
             order number: <input type="text" th:field="*{orderNumber}"/>
             <br/>
-            client <input type="text" th:field="*{client}" size="50" />
-
+            client id: <input type="text" th:field="*{client.clientId}"/>
+            <br/>client name <span id="clientInfo" th:text="*{client.clientName}"/>
             <br/>
             <input type="submit" value="Save"/>
         </form>
-        <select>
+        <select id="selectClient" onchange="selectClient();" style="width:200px;">
+            <option value="-1" selected="selected">wybierz klienta...</option>
             <th:block th:each="client:${clients}">
-                <option><span th:text="${client.clientName}"/></option>
+                <option th:value="${client.clientId}"><span th:text="${client.clientName}"/></option>
             </th:block>
         </select>
+
     </body>
+
 </html>
