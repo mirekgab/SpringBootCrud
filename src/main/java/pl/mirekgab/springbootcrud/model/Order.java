@@ -5,12 +5,12 @@
  */
 package pl.mirekgab.springbootcrud.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,10 +27,11 @@ import javax.persistence.Table;
 public class Order {
     
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_id", referencedColumnName = "clientId")
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "client_id", referencedColumnName = "clientId", nullable = true)
     //@JsonIgnore
     private Client client;
     
@@ -38,12 +39,15 @@ public class Order {
     
     private BigDecimal gross;
     
-    public Long getId() {
-        return id;
+    @OneToMany(mappedBy="orderId")
+    private List<OrderPosition> orderPosition;
+    
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
 
@@ -71,5 +75,14 @@ public class Order {
     public void setClient(Client client) {
         this.client = client;
     }
+
+    public List<OrderPosition> getOrderPosition() {
+        return orderPosition;
+    }
+
+    public void setOrderPosition(List<OrderPosition> orderPosition) {
+        this.orderPosition = orderPosition;
+    }
    
+    
 }

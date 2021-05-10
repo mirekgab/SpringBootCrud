@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.mirekgab.springbootcrud.controller.client;
+package pl.mirekgab.springbootcrud.controller.rest.client;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +39,7 @@ public class ClientRestController {
         this.clientRepository = clientRepository;
     }
 
-    @GetMapping(value="/list", produces="application/hal+json")
+    @GetMapping(value="/list", produces="application/json")
     public Iterable<Client> clientList() {
         Iterable<Client> clients = clientRepository.findAll();
         return clients;

@@ -26,7 +26,7 @@ public class OrderPosition {
     
     private Long orderId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "productId")
     private Product product;
     

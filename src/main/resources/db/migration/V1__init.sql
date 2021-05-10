@@ -1,6 +1,7 @@
 drop table if exists client;
 drop table if exists products;
 drop table if exists orders;
+drop table if exists orders_positions;
 
 create table client (
     client_id bigint auto_increment,
@@ -14,7 +15,7 @@ create table products (
 );
 
 create table orders (
-    id bigint auto_increment,
+    order_id bigint auto_increment,
     client_id bigint,
     order_number varchar(20),
     gross numeric(10,2),

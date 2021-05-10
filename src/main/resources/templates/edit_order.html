@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form th:action="@{/orderhtml/save_order}" th:object="${order}" method="POST">
+            order id: <input type="text" th:field="*{orderId}" readonly="readonly"/>    
+            <br/>
+            order number: <input type="text" th:field="*{orderNumber}"/>
+            <br/>
+            client <input type="text" th:field="*{client}" size="50" />
+
+            <br/>
+            <input type="submit" value="Save"/>
+        </form>
+        <select>
+            <th:block th:each="client:${clients}">
+                <option><span th:text="${client.clientName}"/></option>
+            </th:block>
+        </select>
+    </body>
+</html>
