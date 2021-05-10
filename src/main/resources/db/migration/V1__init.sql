@@ -32,3 +32,8 @@ create table orders_positions (
 alter table orders_positions 
 add foreign key(product_id)
 references products(product_id);
+
+alter table orders_positions
+add foreign key(order_id)
+references orders(order_id)
+on delete cascade

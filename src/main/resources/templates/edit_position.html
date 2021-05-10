@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css" />
+        <script th:inline="javascript">
+            var productsList = /*[[${productsList}]]*/ "";
+        </script>
+    </head>
+    <body>
+        <div>products html list</div>
+        <div><a href="../list">back</a></div>
+        <br/>
+        <br/>
+        order id: <span th:text="${order.orderId}" />
+        <br/>order number: <span th:text="${order.orderNumber}" />
+        <br/>client name: <span th:text="${order.client.clientName}" />
+        <hr/>
+        <form th:action="@{/orderhtml/save_position}" th:object="${orderPosition}" method="post">
+            product id: <input type="text" th:field="${orderPosition.product.productId}" />
+            <br/>
+            product name: <span th:text="${orderPosition.product.productName}" />
+        </form>
+
+        <select id="selectProductsList">
+            <option value="-1">wybierz produkt</a></option>
+            <th:block th:each="product1:${productsList}">
+                <option th:value="${product1.productId}"><span th:text="${product1.productName}"/></option>
+            </th:block>
+
+        </select>
+
+    </body>
+</html>

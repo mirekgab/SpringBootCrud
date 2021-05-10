@@ -6,12 +6,12 @@
 package pl.mirekgab.springbootcrud.service;
 
 import org.springframework.data.repository.CrudRepository;
-import pl.mirekgab.springbootcrud.model.Order;
+import pl.mirekgab.springbootcrud.model.OrderPosition;
 
 /**
  *
  * @author mirek
  */
-public interface OrderRepository extends CrudRepository<Order, Long> {
-   
+public interface OrderPositionRepository extends CrudRepository<OrderPosition, Long> {
+    
 }

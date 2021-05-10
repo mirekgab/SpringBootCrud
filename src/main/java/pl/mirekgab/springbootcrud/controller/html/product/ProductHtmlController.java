@@ -39,11 +39,11 @@ public class ProductHtmlController {
 
     @GetMapping("/list")
     public String productsList(Model model) {
-        RestTemplate rt = new RestTemplate();
-        rt.setMessageConverters(
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setMessageConverters(
                 Traverson.getDefaultMessageConverters(MediaTypes.HAL_JSON));
-
-        ResponseEntity<Product[]> re = rt.getForEntity("http://localhost:8080/product/list", Product[].class);
+        URI uri = mirekgabUriBuilder.buildUri("/product/list");
+        ResponseEntity<Product[]> re = restTemplate.getForEntity(uri, Product[].class);
 
         model.addAttribute("products", re.getBody());
         return "products";

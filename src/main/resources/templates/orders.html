@@ -17,7 +17,7 @@
                 <th>order id</th>
                 <th>order number</th>
                 <th>client name</th>
-                <th colspan='2'>&nbsp;</th>
+                <th colspan='3'>&nbsp;</th>
             </tr>
             <th:block th:each="order:${orders}">
             <tr>
@@ -26,12 +26,13 @@
                 <td th:text="${order.client.clientName}" />
                 <td><a th:href="@{'edit/' + ${order.orderId}}">edytuj</a></td>
                 <td><a th:href="@{'delete/'+${order.orderId}}">usuń</a></td>
+                <td><a th:href="@{'add_product/'+${order.orderId}}">dodaj towar</a></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td colspan="4">
+                <td colspan="5">
                     <table class="table1" style="width:100%;">
-                        <tr th:each="orderPosition, iterStat:${order.orderPosition}">
+                        <tr th:each="orderPosition, iterStat:${order.orderPositions}">
                             <td th:text="${iterStat.count}+' z '+${iterStat.size}"/>
                             <td th:text="${orderPosition.orderId}" />
                             <td th:text="${orderPosition.product.productName}">
@@ -43,8 +44,5 @@
             </tr>
             </th:block>
         </table>
-        
-        <br/>
-        
     </body>
 </html>

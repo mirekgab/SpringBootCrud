@@ -40,7 +40,7 @@ public class Order {
     private BigDecimal gross;
     
     @OneToMany(mappedBy="orderId")
-    private List<OrderPosition> orderPosition;
+    private List<OrderPosition> orderPositions;
     
     public Long getOrderId() {
         return orderId;
@@ -76,12 +76,12 @@ public class Order {
         this.client = client;
     }
 
-    public List<OrderPosition> getOrderPosition() {
-        return orderPosition;
+    public List<OrderPosition> getOrderPositions() {
+        return orderPositions;
     }
 
-    public void setOrderPosition(List<OrderPosition> orderPosition) {
-        this.orderPosition = orderPosition;
+    public void setOrderPositions(List<OrderPosition> orderPositions) {
+        this.orderPositions = orderPositions;
     }
    
     

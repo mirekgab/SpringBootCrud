@@ -52,6 +52,11 @@ public class Product {
     public void setGross(BigDecimal gross) {
         this.gross = gross;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "productId=" + productId + ", productName=" + productName + ", gross=" + gross + '}';
+    }
     
     
 }
