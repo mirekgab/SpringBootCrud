@@ -27,7 +27,7 @@ public class Product {
     
     private String productName;
     
-    private BigDecimal gross;
+    private BigDecimal price;
 
     public Long getProductId() {
         return productId;
@@ -45,17 +45,17 @@ public class Product {
         this.productName = productName;
     }
 
-    public BigDecimal getGross() {
-        return gross;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setGross(BigDecimal gross) {
-        this.gross = gross;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "productId=" + productId + ", productName=" + productName + ", gross=" + gross + '}';
+        return "Product{" + "productId=" + productId + ", productName=" + productName + ", gross=" + price + '}';
     }
     
     

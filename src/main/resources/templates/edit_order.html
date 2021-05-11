@@ -31,7 +31,7 @@ and open the template in the editor.
             <br/>
             order number: <input type="text" th:field="*{orderNumber}"/>
             <br/>
-            client id: <input type="text" th:field="*{client.clientId}"/>
+            client id: <input type="text" th:field="*{client.clientId}" readonly="readonly"/>
             <br/>client name <span id="clientInfo" th:text="*{client.clientName}"/>
             <br/>
             <input type="submit" value="Save"/>

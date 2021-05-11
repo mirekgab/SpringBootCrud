@@ -5,7 +5,7 @@ values
     (3, 'client3'),
     (4, 'client4');
 
-insert into products(product_id, product_name, gross) values 
+insert into products(product_id, product_name, price) values 
     (1L, 'product1', 1.00),
     (2L, 'product2', 10.23),
     (3L, 'product3', 1.22);
@@ -15,9 +15,9 @@ values
     (1L, 1L, 'order1', 0.00),
     (2L, 2L, 'order2', 1.22);
 
-insert into orders_positions(id, order_id, product_id, value) 
+insert into orders_positions(id, order_id, product_id, quantity, value) 
 values 
-    (1L, 1L, 1L, 0.00),
-    (2L, 1L, 2L, 1.02),
-    (3L, 2L, 1L, 1.00),
-    (4L, 1L, 3L, 2.22);
+    (1L, 1L, 1L, 1L, 0.00),
+    (2L, 1L, 2L, 1L, 1.02),
+    (3L, 2L, 1L, 1L, 1.00),
+    (4L, 1L, 3L, 1L, 2.22);

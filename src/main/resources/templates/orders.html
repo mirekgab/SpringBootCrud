@@ -26,16 +26,28 @@
                 <td th:text="${order.client.clientName}" />
                 <td><a th:href="@{'edit/' + ${order.orderId}}">edytuj</a></td>
                 <td><a th:href="@{'delete/'+${order.orderId}}">usuń</a></td>
-                <td><a th:href="@{'add_product/'+${order.orderId}}">dodaj towar</a></td>
+                <td><a th:href="@{'add_position/'+${order.orderId}}">dodaj towar</a></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td colspan="5">
                     <table class="table1" style="width:100%;">
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>order id</th>
+                            <th>product name</th>
+                            <th>product price</th>
+                            <th>product quantity</th>
+                            <th>orders value</th>
+                            <th colspan="2">&nbsp;</th>
+                        </tr>
                         <tr th:each="orderPosition, iterStat:${order.orderPositions}">
                             <td th:text="${iterStat.count}+' z '+${iterStat.size}"/>
                             <td th:text="${orderPosition.orderId}" />
-                            <td th:text="${orderPosition.product.productName}">
+                            <td th:text="${orderPosition.product.productName}" />
+                            <td th:text="${orderPosition.product.price}" />
+                            <td th:text="${orderPosition.quantity}" />
+                            <td th:text="${orderPosition.value}" />
                             <td><a th:href="@{'edit_position/'+${orderPosition.id}}">edytuj</a></td>
                             <td><a th:href="@{'delete_position/'+${orderPosition.id}}">usuń</a></td>
                         </tr>

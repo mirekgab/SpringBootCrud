@@ -68,7 +68,7 @@ public class OrderHtmlController {
             model.addAttribute("order", new Order());
         }
         return "edit_order";
-    }
+    }   
 
     private ResponseEntity<Order> getOrderDetails(Long orderId) {
         RestTemplate restTemplate = new RestTemplate();
@@ -110,6 +110,26 @@ public class OrderHtmlController {
         return "redirect:/orderhtml/list";
     }
 
+    @GetMapping(value = "add_position/{orderId}")
+    public String addPosition(@PathVariable("orderId") Long orderId, Model model) {
+        
+        OrderPosition orderPosition = new OrderPosition();
+        orderPosition.setOrderId(orderId);        
+        model.addAttribute("orderPosition", orderPosition);
+
+        //load products list
+        RestTemplate restTemplate = new RestTemplate();
+        URI uri = mirekgabUriBuilder.buildUri("/product/list");
+        ResponseEntity<Product[]> responseEntityProductsList = restTemplate.getForEntity(uri, Product[].class);
+        Product[] productsList = responseEntityProductsList.getBody();
+        model.addAttribute("productsList", productsList);
+
+        Order order = getOrderDetails(orderId).getBody();
+        model.addAttribute("order", order);
+
+        return "edit_position";
+    }    
+    
     @GetMapping(value = "edit_position/{positionId}")
     public String editPosition(@PathVariable("positionId") Long positionId, Model model) {
         RestTemplate restTemplate = new RestTemplate();
@@ -126,8 +146,7 @@ public class OrderHtmlController {
         Product[] productsList = responseEntityProductsList.getBody();
         model.addAttribute("productsList", productsList);
 
-        Order order = getOrderDetails(positionId).getBody();
-        System.out.println(order.getOrderPositions());
+        Order order = getOrderDetails(orderPosition.getBody().getOrderId()).getBody();
         model.addAttribute("order", order);
 
         return "edit_position";

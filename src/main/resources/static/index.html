@@ -9,22 +9,37 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            .block1 {
+                border:solid 1px black;
+                margin-top:5px;
+                padding:5px;
+            }
+            .block1 h3 {
+                margin-top:0px;
+            }
+        </style>
     </head>
     <body>
         <div>SpringBoot CRUD application</div>
         <br/>
-        <a href="client/list">json clients list</a> &nbsp;&nbsp;(<a href="clientHATEOAS/list">json hateoas clients list</a>)
-        <br/>
-        <a href="clienthtml/list">clients html list</a>
-        <br/><br/>
-        <a href="product/list">json products list</a>
-        <br/>
-        <a href="producthtml/list">products html list</a>
-        <br/><br/>
-        <a href="order/list">json orders list</a>
-        <br/>
-        <a href="orderhtml/list">orders html list</a>
-        <br/><br/>
-        <a href="order_position/list">list all orders positions</a>
+        <div class="block1">
+            <h3>rest api</h3>
+            <a href="client/list">json clients list</a> &nbsp;&nbsp;(<a href="clientHATEOAS/list">json hateoas clients list</a>)
+            <br/>
+            <a href="product/list">json products list</a>
+            <br/>
+            <a href="order/list">json orders list</a>
+            <br/>
+            <a href="order_position/list">list all orders positions</a>
+        </div>
+        <div class="block1">
+            <h3>html application</h3>
+            <a href="clienthtml/list">clients html list</a>
+            <br/>
+            <a href="producthtml/list">products html list</a>
+            <br/>
+            <a href="orderhtml/list">orders html list</a>
+        </div>
     </body>
 </html>

@@ -34,11 +34,11 @@
         &nbsp;&nbsp;&nbsp;&nbsp;client name: <span th:text="${order.client.clientName}" />
         <hr/>
         <form th:action="@{/orderhtml/save_position}" th:object="${orderPosition}" method="post">
-            order id: <input type="text" th:field="*{orderId}" />
+            order id: <input type="text" th:field="*{orderId}" readonly="readonly" />
             <br/>
-            order position id: <input type="text" th:field="*{id}" />
+            order position id: <input type="text" th:field="*{id}" readonly="readonly" />
             <br/>
-            product id: <input type="text" th:field="*{product.productId}" />
+            product id: <input type="text" th:field="*{product.productId}" readonly="readonly" />
             <br/>
             product name: <span id="productName" th:text="*{product.productName}" />
             <br/>

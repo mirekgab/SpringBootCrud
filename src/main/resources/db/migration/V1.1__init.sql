@@ -11,7 +11,7 @@ create table client (
 create table products (
     product_id bigint auto_increment,
     product_name varchar(100),
-    gross numeric(10,2)
+    price numeric(10,2)
 );
 
 create table orders (
@@ -26,7 +26,8 @@ create table orders_positions (
     id bigint auto_increment,
     order_id bigint,
     product_id bigint,
-    value numeric(10,2)
+    quantity numeric(10,2) default 0.00,
+    value numeric(10,2) default 0.00
 );
 
 alter table orders_positions 
