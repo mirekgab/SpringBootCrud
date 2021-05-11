@@ -28,8 +28,8 @@ import pl.mirekgab.springbootcrud.service.ClientRepository;
  *
  * @author mirek
  */
-//@RestController
-//@RequestMapping("/client")
+@RestController
+@RequestMapping("/clientHATEOAS")
 public class ClientRestHATEOASController {
 
     private ClientRepository clientRepository;
@@ -52,9 +52,9 @@ public class ClientRestHATEOASController {
                     .withType("post");
                     
 //Client class must extends RepresentationModel<Client>
-//            c.add(selfLink);
-//            c.add(deleteLink);
-//            c.add(saveClientLink);
+            c.add(selfLink);
+            c.add(deleteLink);
+            c.add(saveClientLink);
         }
         Link link = linkTo(ClientRestHATEOASController.class).slash("list").withRel("allClients");
         CollectionModel<Client> result = CollectionModel.of(clients, link);

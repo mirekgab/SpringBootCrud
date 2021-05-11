@@ -132,4 +132,31 @@ public class OrderHtmlController {
 
         return "edit_position";
     }
+
+    @PostMapping(value = "/save_position")
+    public String savePosition(OrderPosition orderPosition) {
+        RestTemplate rt = new RestTemplate();
+
+        //"http://localhost:8080/client/save_client";
+        String restPath = "/order_position/save";
+        URI uri = mirekgabUriBuilder.buildUri(restPath);
+
+        ResponseEntity<Order> re = rt.postForEntity(uri, orderPosition, Order.class);
+        return "redirect:/orderhtml/list";
+    }
+    
+    @GetMapping(value = "delete_position/{positionId}")
+    public String deleteOrderPosition(@PathVariable("positionId") Long positionId) {
+
+        RestTemplate rt = new RestTemplate();
+
+        String restPath = "/order_position/delete/{orderId}";
+        Map<String, Long> parameters = new HashMap<>();
+        parameters.put("orderId", positionId);
+        URI uri = mirekgabUriBuilder.buildUri(restPath, parameters);
+
+        rt.delete(uri);
+
+        return "redirect:/orderhtml/list";
+    }    
 }

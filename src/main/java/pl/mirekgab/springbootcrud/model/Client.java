@@ -7,6 +7,7 @@ package pl.mirekgab.springbootcrud.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 /**
  *
@@ -14,7 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "client")
-public class Client implements Serializable  {
+public class Client extends RepresentationModel<Client> {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

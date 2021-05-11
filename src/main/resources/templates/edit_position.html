@@ -5,26 +5,50 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/style.css" />
+        <script src="/jquery.min.js"></script>        
         <script th:inline="javascript">
             var productsList = /*[[${productsList}]]*/ "";
+        </script>
+        <script type="text/javascript">
+            function selectProduct() {
+                console.log('invoke function selectProduct');
+                var selectProductId = parseInt($("#selectProductsList").val());
+                console.log('product id ', selectProductId);
+                $("#product\\.productId").val(selectProductId);
+                let productInfo = productsList.find((o) => {
+                    return o["productId"] === selectProductId;
+                });
+                $("#productName").text(productInfo['productName']);
+            }
         </script>
     </head>
     <body>
         <div>products html list</div>
         <div><a href="../list">back</a></div>
+        <hr/>
+        Order info<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;order id: <span th:text="${order.orderId}" />
         <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;order number: <span th:text="${order.orderNumber}" />
         <br/>
-        order id: <span th:text="${order.orderId}" />
-        <br/>order number: <span th:text="${order.orderNumber}" />
-        <br/>client name: <span th:text="${order.client.clientName}" />
+        &nbsp;&nbsp;&nbsp;&nbsp;client name: <span th:text="${order.client.clientName}" />
         <hr/>
         <form th:action="@{/orderhtml/save_position}" th:object="${orderPosition}" method="post">
-            product id: <input type="text" th:field="${orderPosition.product.productId}" />
+            order id: <input type="text" th:field="*{orderId}" />
             <br/>
-            product name: <span th:text="${orderPosition.product.productName}" />
+            order position id: <input type="text" th:field="*{id}" />
+            <br/>
+            product id: <input type="text" th:field="*{product.productId}" />
+            <br/>
+            product name: <span id="productName" th:text="*{product.productName}" />
+            <br/>
+            value: <input type="text" th:field="*{value}" />
+            <br/>
+            <br/>
+            <button type="submit">save</button>
         </form>
-
-        <select id="selectProductsList">
+        <hr/>
+        <select id="selectProductsList" onchange="selectProduct();">
             <option value="-1">wybierz produkt</a></option>
             <th:block th:each="product1:${productsList}">
                 <option th:value="${product1.productId}"><span th:text="${product1.productName}"/></option>

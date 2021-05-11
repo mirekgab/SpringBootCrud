@@ -40,11 +40,10 @@ public class ClientHtmlController {
 
     @GetMapping("/list")
     public String clientList(Model model) {
-        RestTemplate rt = new RestTemplate();
-        rt.setMessageConverters(
-                Traverson.getDefaultMessageConverters(MediaTypes.HAL_JSON));
-
-        ResponseEntity<Client[]> re = rt.getForEntity("http://localhost:8080/client/list", Client[].class);
+        RestTemplate restTemplate = new RestTemplate();        
+        String restPath = "/client/list";
+        URI uri = mirekgabUriBuilder.buildUri(restPath);
+        ResponseEntity<Client[]> re = restTemplate.getForEntity(uri, Client[].class);
 
         model.addAttribute("clients", re.getBody());
         return "clients";
