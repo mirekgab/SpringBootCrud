@@ -8,10 +8,9 @@ package pl.mirekgab.springbootcrud.controller.html.client;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.client.Traverson;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +39,7 @@ public class ClientHtmlController {
 
     @GetMapping("/list")
     public String clientList(Model model) {
-        RestTemplate restTemplate = new RestTemplate();        
+        RestTemplate restTemplate = new RestTemplate();
         String restPath = "/client/list";
         URI uri = mirekgabUriBuilder.buildUri(restPath);
         ResponseEntity<Client[]> re = restTemplate.getForEntity(uri, Client[].class);
@@ -69,28 +68,30 @@ public class ClientHtmlController {
     }
 
     @PostMapping(value = "/save_client")
-    public String saveClient(Client client, HttpServletResponse response) {
+    public String saveClient(Client client, HttpServletResponse response, HttpServletRequest request) {
         RestTemplate rt = new RestTemplate();
 
         //"http://localhost:8080/client/save_client";
         String restPath = "/client/save_client";
         URI uri = mirekgabUriBuilder.buildUri(restPath);
-
+        
         ResponseEntity<Client> re = rt.postForEntity(uri, client, Client.class);
+
         return "redirect:/clienthtml/list";
     }
 
     @GetMapping(value = "delete/{clientId}")
-    public String deleteClient(@PathVariable("clientId") Long clientId) {
+    public String deleteClient(@PathVariable("clientId") Long clientId
+    ) {
 
         RestTemplate rt = new RestTemplate();
-        
+
         //http://localhost:8080/client/delete/{clientId}
         String restPath = "/client/delete/{clientId}";
         Map<String, Long> parameters = new HashMap<>();
         parameters.put("clientId", clientId);
         URI uri = mirekgabUriBuilder.buildUri(restPath, parameters);
-        
+
         rt.delete(uri);
 
         return "redirect:/clienthtml/list";

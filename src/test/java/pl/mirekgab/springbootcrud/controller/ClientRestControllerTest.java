@@ -101,7 +101,7 @@ public class ClientRestControllerTest {
         
         ObjectMapper objectMapper = new ObjectMapper();
         String s1 = objectMapper.writeValueAsString(c);
-        assertEquals(stringResult, s1);
+        assertEquals(s1, stringResult);
         
     }
     
