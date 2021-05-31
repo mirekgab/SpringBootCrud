@@ -21,8 +21,8 @@
             <tr th:each="product:${products}">
                 <td th:text="${product.productId}" />
                 <td th:text="${product.productName}" />
-                <td><a th:href="@{'edit/' + ${product.productId}}">edytuj</a></td>
-                <td><a th:href="@{'delete/'+${product.productId}}">usuń</a></td>
+                <td><a th:href="@{'edit/' + ${product.productId}}">edit</a></td>
+                <td><a th:href="@{'delete/'+${product.productId}}">delete</a></td>
             </tr>
         </table>
     </body>

@@ -24,9 +24,9 @@
                 <td th:text="${order.orderId}" />
                 <td th:text="${order.orderNumber}" />
                 <td th:text="${order.client.clientName}" />
-                <td><a th:href="@{'edit/' + ${order.orderId}}">edytuj</a></td>
-                <td><a th:href="@{'delete/'+${order.orderId}}">usuń</a></td>
-                <td><a th:href="@{'add_position/'+${order.orderId}}">dodaj towar</a></td>
+                <td><a th:href="@{'edit/' + ${order.orderId}}">edit</a></td>
+                <td><a th:href="@{'delete/'+${order.orderId}}">delete</a></td>
+                <td><a th:href="@{'add_position/'+${order.orderId}}">add product</a></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -48,8 +48,8 @@
                             <td th:text="${orderPosition.product.price}" />
                             <td th:text="${orderPosition.quantity}" />
                             <td th:text="${orderPosition.value}" />
-                            <td><a th:href="@{'edit_position/'+${orderPosition.id}}">edytuj</a></td>
-                            <td><a th:href="@{'delete_position/'+${orderPosition.id}}">usuń</a></td>
+                            <td><a th:href="@{'edit_position/'+${orderPosition.id}}">edit</a></td>
+                            <td><a th:href="@{'delete_position/'+${orderPosition.id}}">delete</a></td>
                         </tr>
                     </table>
                 </td>
