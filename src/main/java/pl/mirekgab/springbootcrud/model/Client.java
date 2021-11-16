@@ -5,7 +5,6 @@
  */
 package pl.mirekgab.springbootcrud.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
 import org.springframework.hateoas.RepresentationModel;
 
